@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Товары и Услуги</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../libs.min.css">
+    <link rel="stylesheet" href="../main.css">
+</head>
+
+<body>
+<header class="header">
+    <nav class="nav">
+        <a href="" class="logo"><img src="../img/LOGO.png" alt=""></a>
+
+        <div class="nav__left">
+            <a href="" class="nav__left-item btn btn-xs btn-nav">Интерфейс кассира</a>
+            <a href="" class="nav__left-item bell"><span class="bell__count">10</span></a>
+            <a href="" class="nav__left-item nav-user">
+                Аскар Атаев<br>
+                <span class="user-nav__status">Владелец</span>
+            </a>
+        </div>
+    </nav>
+</header>
+<main class="main">
+    <div class="menu-wrapper">
+        <div class="menu">
+            <div class="menu__btncreat-doc">
+                <a href="" class="btn btn-sm btn-red">Создать документ</a>
+            </div>
+            <div class="menu__item"><a href="" class="menu__link menu__link--active">Главная</a></div>
+            <div class="menu__item"><a href="" class="menu__link">Товары и услуги</a></div>
+            <div class="menu__item">
+                <a href="" class="menu__link menu__link--drop">Кассы и смены</a>
+                <div class="menu__drop">
+                    <a href="" class="menu__drop-link">Кассы</a>
+                    <a href="" class="menu__drop-link">смены</a>
+                </div>
+            </div>
+            <div class="menu__item"><a href="" class="menu__link">Отчеты</a></div>
+            <div class="menu__item"><a href="" class="menu__link menu__link--drop">Контрагенты</a></div>
+            <div class="menu__item menu__item--korzina"><a href="" class="menu__link">Корзина</a></div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content__block-wrapper">
+            <div class="block">
+                <div class="block__head">
+                    <div class="block__item relative">
+                        <form class="input input--filter">
+                            <input type="text" class="input__input" placeholder="Поиск по наименованию...">
+                            <span class="input__icon input__icon--filter"></span>
+                            <div class="filter-input">
+                                <!-- <div class="filter-input__row filter-input__check-row">
+                                    <div class="w-33 filter-input__chech">
+                                        <label class="checkbox">
+                                            <input type="checkbox" class="visually-hidden">
+                                            <span class="checkbox__mark"></span>
+                                            Товар
+                                        </label>
+                                    </div>
+                                    <div class="w-33 filter-input__chech">
+                                        <label class="checkbox">
+                                            <input type="checkbox" class="visually-hidden">
+                                            <span class="checkbox__mark"></span>
+                                            Услуга
+                                        </label>
+                                    </div>
+                                    <div class="w-33 filter-input__chech">
+                                        <label class="checkbox">
+                                            <input type="checkbox" class="visually-hidden">
+                                            <span class="checkbox__mark"></span>
+                                            Комплект
+                                        </label>
+                                    </div>
+                                </div> -->
+                                <div class="filter-input__row">
+                                    <p class="filter-input__cap">Выбрать категорию</p>
+                                    <div class="w-33 g">
+                                        <select name="" id="" class="my-select">
+                                            <option data-display="Действия"></option>
+                                            <option value="">Слон</option>
+                                            <option value="">Лев</option>
+                                            <option value="">Жира</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="filter-input__row">
+                                    <p class="filter-input__cap">Цена</p>
+                                    <div class="filter-input__inner-block">
+                                        <div class="w-33">
+                                            <select name="" id="" class="my-select">
+                                                <option data-display="Базовая"></option>
+                                                <option value="">Слон</option>
+                                                <option value="">Лев</option>
+                                                <option value="">Жира</option>
+                                            </select>
+                                        </div>
+                                        <div class="w-33">
+                                            <div class="input input--namber-filter">
+                                                <input type="number" class="input__input" placeholder="От">
+                                                <span class="input-nstr input-nstr--plus"></span>
+                                                <span class="input-nstr input-nstr--minus"></span>
+                                            </div>
+                                        </div>
+                                        <div class="w-33">
+                                            <div class="input input--namber-filter">
+                                                <input type="number" class="input__input" placeholder="До">
+                                                <span class="input-nstr input-nstr--plus"></span>
+                                                <span class="input-nstr input-nstr--minus"></span>
+                                            </div>
+                                        </div>
+                                        <div class="filter-input__block-plus"></div>
+                                    </div>
+                                </div>
+                                <div class="filter-input__row">
+                                    <p class="filter-input__cap">Остатки</p>
+                                    <div class="filter-input__inner-block">
+                                        <div class="w-33">
+                                            <select name="" id="" class="my-select">
+                                                <option data-display="Общие"></option>
+                                                <option value="">Слон</option>
+                                                <option value="">Лев</option>
+                                                <option value="">Жира</option>
+                                            </select>
+                                        </div>
+                                        <div class="w-33">
+                                            <select name="" id="" class="my-select">
+                                                <option data-display="Больше"></option>
+                                                <option value="">Слон</option>
+                                                <option value="">Лев</option>
+                                                <option value="">Жира</option>
+                                            </select>
+                                        </div>
+                                        <div class="w-33">
+                                            <div class="input input--namber-filter">
+                                                <input type="number" class="input__input" placeholder="">
+                                                <span class="input-nstr input-nstr--plus"></span>
+                                                <span class="input-nstr input-nstr--minus"></span>
+                                            </div>
+                                        </div>
+                                        <div class="filter-input__block-plus"></div>
+                                    </div>
+                                    <div class="filter-input__inner-block">
+                                        <div class="w-33">
+                                            <select name="" id="" class="my-select">
+                                                <option data-display="Общие"></option>
+                                                <option value="">Слон</option>
+                                                <option value="">Лев</option>
+                                                <option value="">Жира</option>
+                                            </select>
+                                        </div>
+                                        <div class="w-33">
+                                            <select name="" id="" class="my-select">
+                                                <option data-display="Больше"></option>
+                                                <option value="">Слон</option>
+                                                <option value="">Лев</option>
+                                                <option value="">Жира</option>
+                                            </select>
+                                        </div>
+                                        <div class="w-33">
+                                            <div class="input input--namber-filter">
+                                                <input type="number" class="input__input" placeholder="">
+                                                <span class="input-nstr input-nstr--plus"></span>
+                                                <span class="input-nstr input-nstr--minus"></span>
+                                            </div>
+                                        </div>
+                                        <div class="filter-input__block-plus filter-input__block-delete"></div>
+                                    </div>
+                                </div>
+                                <div class="filter-input__row">
+                                    <p class="filter-input__cap">Срок годность</p>
+                                    <div class="filter-input__inner-block">
+                                        <div class="w-33 g">
+                                            <select name="" id="" class="my-select">
+                                                <option data-display="Истекает в течени"></option>
+                                                <option value="">Слон</option>
+                                                <option value="">Лев</option>
+                                                <option value="">Жира</option>
+                                            </select>
+                                        </div>
+                                        <div class="w-33">
+                                            <div class="input input--namber-filter">
+                                                <input type="number" class="input__input" placeholder="Дней">
+                                                <span class="input-nstr input-nstr--plus"></span>
+                                                <span class="input-nstr input-nstr--minus"></span>
+                                            </div>
+                                        </div>
+                                        <div class="filter-input__block-plus"></div>
+                                    </div>
+                                </div>
+                                <div class="filter-input__row">
+                                    <div class="w-33 g">
+                                        <button class="btn btn-def btn-green">Применить</button>
+                                    </div>
+                                    <div class="w-33 g">
+                                        <button class="btn btn-def">Сбросить фильтры</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="block__item">
+                        <select name="" id="" class="my-select actions-select">
+                            <option data-display="Действия"></option>
+                            <option value="">Редактор цен</option>
+                            <option value="">Удалить</option>
+                        </select>
+                    </div>
+                    <div class="block__item">
+                        <div class="button-link">
+                            <a href="" class="button-link__button button-link__button--add-good">
+                                <span class="button-link__icon button-link__icon--plus"></span>
+                                Добавить товар
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block__item">
+                        <div class="button-link">
+                            <a href="" class="button-link__button">
+                                <span class="button-link__icon button-link__icon--folder"></span>
+                                Создать группу
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block__item block__item--r">
+                        <a href="" class="button-controls__button">
+                        </a>
+                    </div>
+                </div>
+                <div class="block__item block__item--overauto">
+                    <table class="table">
+                        <tr>
+                            <th class="table__td-check">
+                                <label class="checkbox">
+                                    <input type="checkbox" class="visually-hidden">
+                                    <span class="checkbox__mark"></span>
+                                </label>
+                            </th>
+                            <th>Наименование</th>
+                            <th>Код</th>
+                            <th>Ед.измерения</th>
+                            <th>Базовая цена (сом)</th>
+                            <th>Скидки</th>
+                            <th>Остатки</th>
+                        </tr>
+                        <tr>
+                            <td class="table__td-check">
+                                <label class="checkbox">
+                                    <input type="checkbox" class="visually-hidden">
+                                    <span class="checkbox__mark"></span>
+                                </label>
+                            </td>
+                            <td class="table__td-name">
+                                <a href="" class="table__td-link">
+                                    <div class="table__td-img">
+                                        <img src="../img/cola-mini.jpg" alt="">
+                                    </div>
+                                    Coca - cola 1л.
+                                    <span class="table__td-edit"></span>
+                                </a>
+                            </td>
+                            <td>00101234</td>
+                            <td>Бутылка</td>
+                            <td>50.00</td>
+                            <td>0%</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td class="table__td-check">
+                                <label class="checkbox">
+                                    <input type="checkbox" class="visually-hidden">
+                                    <span class="checkbox__mark"></span>
+                                </label>
+                            </td>
+                            <td class="table__td-name">
+                                <a href="" class="table__td-link">
+                                    <div class="table__td-img">
+                                        <img src="../img/nestle-mini.jpg" alt="">
+                                    </div>
+                                    Nestle орех 100гр.
+                                    <span class="table__td-edit"></span>
+                                </a>
+                            </td>
+                            <td>00101234</td>
+                            <td>Штук</td>
+                            <td>40.00</td>
+                            <td>0%</td>
+                            <td>100</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="block block--add-good">
+    <div class="block__head">
+        <div class="block__item">
+            <button class="btn btn-def btn-green btn-green--disabled">Сохранить</button>
+        </div>
+        <div class="block__item block__item--r">
+            <button class="btn btn-circle-close" id="add-good-close"></button>
+        </div>
+    </div>
+    <label class="block__item block__item--col-half check-type">
+        <input type="radio" class="visually-hidden" checked name="add-good-or-servise">
+        <div class="check-type__content">
+            <p class="check-type__cap">Товар</p>
+            <p class="check-type__text">Продукт, имеющий остаток, который необходимо восполнять</p>
+        </div>
+    </label>
+    <div class="block__item block__item--full">
+        <p class="block__item-name">Наименование товара/услуги</p>
+        <input type="text" class="input-text">
+    </div>
+    <div class="block__item block__item--full">
+        <p class="block__item-name">Штрих — код</p>
+        <input type="text" class="input-text">
+    </div>
+    <div class="block__item block__item--full">
+        <p class="block__item-name">Изображение</p>
+        <label class="input-img">
+            <input type="file" class="visually-hidden">
+            Выберите фото для загрузки
+        </label>
+    </div>
+    <div class="block__item block__item--full">
+        <p class="block__item-name">Категории</p>
+        <select name="" id="" class="my-select">
+            <option data-display="Выберите из списка или создайте новую категорию"></option>
+            <option value="">Слон</option>
+            <option value="">Лев</option>
+            <option value="">Жира</option>
+        </select>
+    </div>
+    <div class="block__item block__item--col-half">
+        <p class="block__item-name">Единица измерения</p>
+        <input type="text" class="input-text" placeholder="шт/кг/л">
+    </div>
+    <div class="block__item block__item--col-half">
+        <label class="checkbox-button">
+            <input type="checkbox" class="checkbox-button__input">
+            Весовой товар
+        </label>
+    </div>
+    <div class="block__item block__item--full">
+        <p class="block__item-name">Описание</p>
+        <textarea name="" id="" rows="10" class="textarea"></textarea>
+    </div>
+    <div class="block__item block__item--full">
+        <hr class="block-hr">
+    </div>
+    <p class="block__cap">Цены</p>
+    <div class="block__item block__item--full">
+        <p class="block__item-name">Цена закупки</p>
+        <div class="input">
+            <input type="text" class="input__input" placeholder="Сом">
+        </div>
+    </div>
+    <div class="block__item block__item--full">
+        <p class="block__item-name">Наценка</p>
+        <div class="input">
+            <input type="text" class="input__input" placeholder="%">
+        </div>
+    </div>
+    <div class="block__item block__item--full">
+        <p class="block__item-name">Цена продажи</p>
+        <div class="input">
+            <input type="text" class="input__input" placeholder="Сом">
+        </div>
+    </div>
+    <div class="block__item block__item--col-half">
+        <p class="block__item-name">Скидка</p>
+        <div class="input">
+            <input type="text" class="input__input" placeholder="%">
+        </div>
+    </div>
+    <div class="block__item block__item--col-half">
+        <p class="block__item-name">НДС</p>
+        <div class="input">
+            <input type="text" class="input__input" placeholder="%">
+        </div>
+    </div>
+    <div class="block__item block__item--full">
+        <hr class="block-hr">
+    </div>
+    <p class="block__cap">Склад</p>
+    <div class="block__item block__item--full">
+        <select name="" id="" class="my-select">
+            <option data-display="Группы"></option>
+            <option value="">Слон</option>
+            <option value="">Лев</option>
+            <option value="">Жира</option>
+        </select>
+    </div>
+    <div class="block__item block__item--col-half">
+        <p class="block__item-name">Выберите поставщика</p>
+        <select name="" id="" class="my-select">
+            <option value="">Слон</option>
+            <option value="">Лев</option>
+            <option value="">Жира</option>
+        </select>
+    </div>
+    <div class="block__item block__item--col-half">
+        <p class="block__item-name">Минимальный остаток</p>
+        <input type="text" class="input__input" placeholder="%">
+    </div>
+    <div class="block__item block__item--full">
+        <label class="checkbox-button">
+            <input type="checkbox" class="checkbox-button__input">
+            <div class="checkbox-button__text">
+                <span class="checkbox-button__lead">Ввести начальные остатки</span><br>
+                <span class="checkbox-button__title">Будут созданы документы оприходования</span>
+            </div>
+        </label>
+    </div>
+    <div class="block__item">
+        <p class="block__item-name">Точка продажи</p>
+        <select name="" id="" class="my-select">
+            <option data-display="Мой магазин"></option>
+            <option value="">Слон</option>
+            <option value="">Лев</option>
+            <option value="">Жира</option>
+        </select>
+    </div>
+    <div class="block__item">
+        <p class="block__item-name">Начальный остаток</p>
+        <input type="text" class="input__input">
+    </div>
+    <div class="block__item">
+        <p class="block__item-name">Срок годности</p>
+        <div class="input">
+            <input type="date" class="input__input input__input--date" placeholder="DD/MM/YYYY">
+        </div>
+    </div>
+    <div class="block__item"></div>
+    <div class="block__item"></div>
+    <div class="block__item"></div>
+
+</div>
+<script src="../js/libs.min.js"></script>
+<script src="../js/common.js"></script>
+</body>
+
+</html>

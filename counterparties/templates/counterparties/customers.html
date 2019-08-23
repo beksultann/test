@@ -1,0 +1,281 @@
+{% extends 'product/index.html' %}
+{% block content %}
+    <div class="content">
+        <div class="content__block-wrapper">
+
+            <div class="block">
+
+                <div class="block__head relative--head">
+                    <div class="block__item">
+                        <div class="button-link">
+                            <a href="" class="button-link__button button-link__button--plus-customers">
+                                <span class="button-link__icon button-link__icon--plus"></span>
+                                Создать
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block__item">
+                        <div class="button-link">
+
+                            <label for="delete-button"
+                                   class="button-link__button button-link__button--delete-good">
+                                <span class="button-link__icon button-link__icon--delete"></span>
+                                Удалить
+                            </label>
+                        </div>
+                    </div>
+                    <div class="block__item">
+                        <form action="">
+                            <div class="input input--blue">
+                                <input type="text" name="search" class="input__input"
+                                       placeholder="Поиск">
+                                <div class="input__icon input__icon--search"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <p class="block__title block__item--r block__title--r">Количество {{ num }}</p>
+                    <div class="block__item">
+                        <div class="input input--blue">
+                            <button class="btn input__btn">Импор клиентов</button>
+                            <div class="input__icon input__icon--customers"></div>
+                        </div>
+                    </div>
+                    <div class="set-table">
+                        <a href="" class="button-controls button-controls--download">
+                        </a>
+                    </div>
+                </div>
+                <form action="{% url 'customer' %}" method="post">
+                    {% csrf_token %}
+                    <div class="block__item block__item--overauto">
+                        <table class="table">
+                            <tr>
+                                <th class="table__td-check">
+                                    <label class="checkbox">
+                                        <input type="checkbox" class="visually-hidden">
+                                        <span class="checkbox__mark"></span>
+                                    </label>
+                                </th>
+                                <th>Клиент</th>
+                                <th>Телефон</th>
+                                <th>Emal</th>
+                                <th>Скидка</th>
+                                <th>Добавил</th>
+                                <th>Создан</th>
+                            </tr>
+                            {% for client in clients %}
+                                <tr>
+                                    <td class="table__td-check">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="customers" value="{{ client.id }}"
+                                                   class="visually-hidden">
+                                            <span class="checkbox__mark"></span>
+                                        </label>
+                                    </td>
+                                    <td>{{ client.name }}</td>
+                                    <td>{{ client.phone_number }}</td>
+                                    <td>{{ client.email }}</td>
+                                    <td>{{ client.discount }} %</td>
+                                    <td>Аскар Атаев</td>
+                                    <td>{{ client.date_of_created }}</td>
+                                </tr>
+                            {% endfor %}
+
+
+                        </table>
+                    </div>
+                    <input id="delete-button" type="submit" style="display: none;">
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="tabs block block--add block--add-customers">
+        <div class="block__head">
+            <div class="block__item">
+                <button class="btn btn-def btn-green btn-green--disabled">Сохранить</button>
+            </div>
+            <div class="block__item block__item--r">
+                <button class="btn btn-circle-close" id="add-customers-close"></button>
+            </div>
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__caption">Создание клиента</p>
+        </div>
+        <ul class="block__item block__item--full check-type-wrapper">
+            <li class="check-type">
+                <p class="check-type__cap">Физическое лицо</p>
+            </li>
+            <li class="check-type">
+                <p class="check-type__cap">Юридическое лицо</p>
+            </li>
+        </ul>
+
+        <div class="change-block block__hidden">
+            <p class="block__cap">Ввод в вручную</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Наименование</p>
+                <input type="text" class="input-text">
+            </div>
+            <div class="block__item">
+                <label class="checkbox-button">
+                    <input type="checkbox" class="checkbox-button__input">
+                    <div class="checkbox-button__text">
+                        <span class="checkbox-button__lead">По умолчанию</span>
+                    </div>
+                </label>
+            </div>
+            <div class="block__item">
+                <label class="checkbox-button">
+                    <input type="checkbox" class="checkbox-button__input">
+                    <div class="checkbox-button__text">
+                        <span class="checkbox-button__lead">Учитывать накопительные скидки</span>
+                    </div>
+                </label>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Номер телефона</p>
+                <div class="input">
+                    <input type="text" class="input__input">
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Email</p>
+                <div class="input">
+                    <input type="text" class="input__input">
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Скидка</p>
+                <input type="text" class="input-text" placeholder="%">
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Дисконтная карта</p>
+                <input type="text" class="input-text" placeholder="">
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Дата рождения</p>
+                <input type='text' class="datepicker-here input-text" placeholder="DD/MM/YYYY"/>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Пол</p>
+                <div class="gender-check-wrapper">
+                    <label class="gender-check">
+                        <input type="radio" class="visually-hidden" name="gender-check">
+                        <div class="gender-check__mark"></div>
+                        Мужской
+                    </label>
+                    <label class="gender-check">
+                        <input type="radio" class="visually-hidden" name="gender-check">
+                        <div class="gender-check__mark"></div>
+                        Женский
+                    </label>
+                </div>
+            </div>
+            <p class="block__cap">Адрес</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Фактический</p>
+                <textarea name="" id="" rows="10" class="textarea"></textarea>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Описание</p>
+                <textarea name="" id="" rows="10" class="textarea"></textarea>
+            </div>
+        </div>
+        <div class="change-block block__hidden">
+            <div class="block__item block__item--full">
+                <input type="text" class="input-text" placeholder="Поиск по организации по наименованию, ИНН или ОГРН">
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Наименование</p>
+                <input type="text" class="input-text">
+            </div>
+            <div class="block__item">
+                <label class="checkbox-button">
+                    <input type="checkbox" class="checkbox-button__input">
+                    <div class="checkbox-button__text">
+                        <span class="checkbox-button__lead">По умолчанию</span>
+                    </div>
+                </label>
+            </div>
+            <div class="block__item">
+                <label class="checkbox-button">
+                    <input type="checkbox" class="checkbox-button__input">
+                    <div class="checkbox-button__text">
+                        <span class="checkbox-button__lead">Учитывать накопительные скидки</span>
+                    </div>
+                </label>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Номер телефона</p>
+                <div class="input">
+                    <input type="text" class="input__input">
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Email</p>
+                <div class="input">
+                    <input type="text" class="input__input">
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Скидка</p>
+                <input type="text" class="input-text" placeholder="%">
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Дисконтная карта</p>
+                <input type="text" class="input-text">
+            </div>
+            <p class="block__cap">Реквизиты</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Реквизиты организации</p>
+                <div class="input">
+                    <input type="text" class="input__input" placeholder="Наименование реквизита (прим. ИНН)">
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <input type="text" class="input-text" placeholder="Номер реквизита (прим. 5702001741)">
+            </div>
+            <p class="block__cap">Банковские реквизиты</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Номер счетаи</p>
+                <input type="text" class="input-text">
+            </div>
+            <div class="block__item block__item--full">
+                <div class="input">
+                    <input type="text" class="input__input" placeholder="Поиск банковских реквизитов по  БИК и SWIFT">
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <p class="block__cap">Ввод реквизитов вручную</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Реквизиты организации</p>
+                <div class="input">
+                    <input type="text" class="input__input" placeholder="Наименование реквизита (прим. БИК)">
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <input type="text" class="input-text" placeholder="Номер реквизита (прим. 776353444)">
+            </div>
+            <p class="block__cap">Адрес</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Юридический</p>
+                <textarea name="" id="" rows="10" class="textarea"></textarea>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Фактический</p>
+                <textarea name="" id="" rows="10" class="textarea"></textarea>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Описание</p>
+                <textarea name="" id="" rows="10" class="textarea"></textarea>
+            </div>
+        </div>
+    </div>
+{% endblock %}

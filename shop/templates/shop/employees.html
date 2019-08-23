@@ -1,0 +1,252 @@
+{% extends 'product/index.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="content">
+        <div class="content__block-wrapper">
+            <div class="block">
+                <div class="block__head">
+                    <div class="block__item">
+                        <div class="button-link">
+                            <a href="" class="button-link__button button-link__button--plus-cashier">
+                                <span class="button-link__icon button-link__icon--plus"></span>
+                                Создать кассира
+                            </a>
+                        </div>
+                        <div class="button-link">
+                            <a href="" class="button-link__button button-link__button--plus-employees">
+                                <span class="button-link__icon button-link__icon--plus"></span>
+                                Создать сотрудника
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+            {% if messages %}
+                <ul class="messagelist">
+                    {% for message in messages %}
+                        <li class="alert alert-success ">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+
+            {% endif %}
+
+        </div>
+        <div class="content__block-wrapper">
+            <div class="block block--employee">
+                {% for employer in cashiers %}
+                    <div class="block__item block__item--third">
+                        <div class="employee">
+                            <div class="employee__head">
+                                <div class="employee__img">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="employee__info">
+                                    <div class="employee__name">{{ employer.first_name }}</div>
+                                    {% if employer.profile.role == 1 %}
+                                        <div class="employee__position">Кассир</div>
+                                    {% elif employer.profile.role == 2 %}
+                                        <div class="employee__position">Менеджер</div>
+                                    {% elif employer.profile.role == 3 %}
+                                        <div class="employee__position">Администратор</div>
+                                    {% endif %}
+
+                                </div>
+                                <div class="edit-dots">
+                                    <div class="edit-dots__button">
+                                        <span class="edit-dot"></span>
+                                        <span class="edit-dot"></span>
+                                        <span class="edit-dot"></span>
+                                    </div>
+                                    <div class="edit-dots__list">
+                                        {#                                        <a href="" class="edit-dots__item edit-dots__item--edit">Редактировать</a>#}
+                                        <a href="{% url 'delete_users' employer.id %}"
+                                           class="edit-dots__item edit-dots__item--delete">Удалить</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#"
+                               class="employee__item employee__item--tel">{{ employer.profile.phone_number }}</a>
+                            <a href="#" class="employee__item employee__item--email">{{ employer.email }}</a>
+                            <div class="employee__item employee__item--score">Название магазина</div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for employer in employees %}
+                    <div class="block__item block__item--third">
+                        <div class="employee">
+                            <div class="employee__head">
+                                <div class="employee__img">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="employee__info">
+                                    <div class="employee__name">{{ employer.name }}</div>
+                                    <div class="employee__position">Сотрудник</div>
+
+
+                                </div>
+                                <div class="edit-dots">
+                                    <div class="edit-dots__button">
+                                        <span class="edit-dot"></span>
+                                        <span class="edit-dot"></span>
+                                        <span class="edit-dot"></span>
+                                    </div>
+                                    <div class="edit-dots__list">
+                                        <a href="" class="edit-dots__item edit-dots__item--edit">Редактировать</a>
+                                        <a href="{% url 'delete_employees' employer.id %}"
+                                           class="edit-dots__item edit-dots__item--delete">Удалить</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#"
+                               class="employee__item employee__item--tel">{{ employer.phone_number }}</a>
+                            <a href="#" class="employee__item employee__item--email">{{ employer.email }}</a>
+                            <div class="employee__item employee__item--score">Название магазина</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="block block--add block--add-cashier">
+            <div class="block__head">
+                <div class="block__item">
+                    <button class="btn btn-def btn-green btn-green--disabled" type="submit">Сохранить</button>
+                </div>
+                <div class="block__item block__item--r">
+                    <button class="btn btn-circle-close" id="add-cashier-close"></button>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__caption">Добавление кассира</p>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Username</p>
+                {#                <input type="text" class="input-text">#}
+                {{ form.username|add_class:"input-text" }}
+                <p>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
+            </div>
+
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Изображение</p>
+                <label class="input-img">
+                    <input type="file" class="visually-hidden">
+                    Выберите фото для загрузки
+                </label>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Магазин</p>
+                <select name="" id="" class="my-select">
+                    <option data-display="Группы"></option>
+                    <option value="">Слон</option>
+                    <option value="">Лев</option>
+                    <option value="">Жира</option>
+                </select>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Имя</p>
+                {#                <input type="text" class="input-text">#}
+                {{ form.first_name|add_class:"input-text" }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">фамилия сотрудника</p>
+                {#                <input type="text" class="input-text">#}
+                {{ form.last_name|add_class:"input-text" }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name required">Email</p>
+                {#                <input type="text" class="input-text" required>#}
+                {{ form.email|add_class:"input-text" }}
+            </div>
+
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Номер телефона</p>
+                {{ form.phoneNumber|add_class:"input-text" }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name required">Пароль</p>
+                {#                <input type="text" class="input-text" required>#}
+                {{ form.password1|add_class:"input-text" }}
+                <p>Your password can't be too similar to your other personal information.
+                    Your password must contain at least 8 characters.
+                    Your password can't be a commonly used password.
+                    Your password can't be entirely numeric.</p>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name required">Потвердить</p>
+                {#                <input type="text" class="input-text" required>#}
+                {{ form.password2|add_class:"input-text" }}
+                <p>Enter the same password as before, for verification.</p>
+            </div>
+
+
+        </div>
+    </form>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="block block--add block--add-employees">
+            <div class="block__head">
+                <div class="block__item">
+                    <button class="btn btn-def btn-green btn-green--disabled" type="submit">Сохранить</button>
+                </div>
+                <div class="block__item block__item--r">
+                    <button class="btn btn-circle-close" id="add-employees-close"></button>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__caption">Добавление сотрудника</p>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Имя</p>
+                <div class="input">
+                    {{ form2.name }}
+                    <div class="input__icon"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Номер телефона</p>
+                <div class="input">
+                    {{ form2.phone_number|add_class:"input__input" }}
+                    <div class="input__icon"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Email</p>
+                <div class="input">
+                    {{ form2.email|add_class:"input__input" }}
+                    <div class="input__icon"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Дата рождения</p>
+                {{ form2.date_of_birth|add_class:"datepicker-here input-text" }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Пол</p>
+                <div class="gender-check-wrapper">
+                    {{ form2.sex }}
+
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Зарплата</p>
+                <div class="input">
+                    {{ form2.pay }}
+                    <div class="input__icon"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+{% endblock %}

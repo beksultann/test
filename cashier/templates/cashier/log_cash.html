@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Интерфейс кассра</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/libs.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+<div class="main-cashier">
+    <div class="tabs main-cashier__content">
+        <ul class="changer header header--cashier">
+            <li class="change-item nav-btn nav-btn--good"></li>
+            <li class="change-item nav-btn nav-btn--category"></li>
+            <input type="search" class="nav-search" placeholder="Поиск по наименованию, артикулу, штрихкоду и описанию">
+        </ul>
+        <div class="change-block content content--scroll">
+            <div class="block block--good-cashier">
+                <div class="block__item block__item--full">
+                    <p class="block__caption">Товары</p>
+                </div>
+                {% for product in products %}
+                    <div class="block__col">
+                        <div class="card-good" style="text-align: center">
+                            <p class="card-good__cap">100 {{ product.unit }}</p>
+
+                            <div class="card-good__img">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="">
+                                {% endif %}
+
+                            </div>
+
+                            <p class="card-good__name" id="product_name">{{ product.name }}</p>
+                            <p class="card-good__price" id="product_price">{{ product.selling_price }} сом</p>
+                            <a href="#">
+
+                                <button class="button-link__button"
+                                        style="background-color: lightgray">ДОБАВИТЬ
+                                </button>
+                            </a>
+
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="change-block content content--category">
+            <div class="block block--good-cashier">
+                <div class="block__item block__item--full">
+                    <p class="block__caption">Категории</p>
+                </div>
+                {% for category in categories %}
+                    <div class="block__color">
+                        <a href="" class="card-color">
+                            {{ category.name }}
+                        </a>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+        <div class="menu-bottom">
+            <div class="menu-bottom__burger">
+                <a href="" class="menu-bottom__burger-link">Меню</a>
+                <div class="menu-bottom__list">
+                    <a href="{% url 'logout' %}" class="menu-bottom__items menu-bottom__items--close-change">
+                        Закрыть
+                    </a>
+                </div>
+            </div>
+            <div class="menu-bottom__item">Магазин Фрунзе №1 / Смена 4</div>
+            <div class="menu-bottom__item">19 июня, среда 10: 39</div>
+        </div>
+    </div>
+    <div class="main-cashier__sidebar">
+        <div class="open-change display-flex">
+            <button class="btn btn-def btn-green" id="open-change">Открыть смену</button>
+            <div class="block open-change__content">
+                <div class="block__item block__item--full">
+                    <p class="block__caption">Открытие смен</p>
+                    <p class="block__title">Сверка денег в кассе</p>
+                    <a href="{% url 'logout' %}" class="nav-btn nav-btn--delete"></a>
+                </div>
+                <form action="{% url 'cashier_save' %}" method="post" class="block__item block__item--full">
+                    {% csrf_token %}
+                    <div class="block__item block__item--full">
+                        <p class="block__item-name">Касса</p>
+                        <select name="cash_name" id="" class="my-select">
+                            <option data-display="Выбрать кассу" value=''></option>
+                            {% for cashbox in cashboxes %}
+                                <option value="{{ cashbox.name }}">{{ cashbox.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="block__item block__item--full">
+                        <p class="block__item-name">Магазин</p>
+                        <select name="shop_name" id="" class="my-select">
+                            <option data-display="Выбрать точку продажи" value=""></option>
+                            {% for shop in shops %}
+                                <option value="{{ shop.name }}">{{ shop.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="block__item block__item--r">
+                        <input class="btn btn-def btn-green" type="submit" value="Открыть смену">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="sidebar--hidden display-flex">
+            <header class="header header--sidebar">
+                <nav class="nav">
+                    <a href="" class="nav-btn nav-btn--ava-cashuer" id="add-cus-open"></a>
+                    <input type="text" class="nav-search" placeholder="Розничный покупатель">
+                </nav>
+            </header>
+        </div>
+        <div class="sidebar--hidden" id="search-cus">
+            <header class="header header--sidebar">
+                <nav class="nav">
+                    <input type="search" class="nav-search"
+                           placeholder="Поиск покупателя по имени, телефону, email и дисонтной карте">
+                </nav>
+            </header>
+        </div>
+    </div>
+</div>
+<div class="popup popup__close-change">
+    <div class="popup__content">
+        <p class="popup__cap">Вы действительно хотите закрыть смену?</p>
+        <a href="" class="btn btn-def btn-not popup__close">Нет</a>
+        <a href="" class="btn btn-def btn-green popup__btn popup__close">Да</a>
+        <a href="" class="btn btn-def btn-close popup__close"></a>
+    </div>
+</div>
+<script src=" {% static 'js/libs.min.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+</body>
+
+</html>

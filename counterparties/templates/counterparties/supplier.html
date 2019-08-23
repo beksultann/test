@@ -1,0 +1,166 @@
+{% extends 'product/index.html' %}
+{% block content %}
+    <div class="content">
+        <div class="content__block-wrapper">
+            <div class="block">
+                <div class="block__head">
+                    <div class="block__item">
+                        <div class="button-link">
+                            <a href="" class="button-link__button button-link__button--plus-suppliers">
+                                <span class="button-link__icon button-link__icon--plus"></span>
+                                Создать
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block__item">
+                        <div class="button-link">
+
+                            <label for="delete-btn"
+                                   class="button-link__button button-link__button--delete-good">
+                                <span class="button-link__icon button-link__icon--delete"></span>
+                                Удалить
+                            </label>
+                        </div>
+                    </div>
+                    <div class="block__item">
+                        <div class="input input--blue">
+                            <form class="input input--filter">
+                                <input type="text" class="input__input" name="search" placeholder="Поиск">
+                            </form>
+                            <div class="input__icon input__icon--search"></div>
+                        </div>
+                    </div>
+                    <p class="block__title block__item--r block__title--r">Количество {{ num }}</p>
+                    <div class="block__item">
+                        <a href="" class="button-controls button-controls--download">
+                        </a>
+                    </div>
+                </div>
+                <form action="{% url 'supplier' %}" method="post">
+
+                    {% csrf_token %}
+                    <div class="block__item block__item--overauto">
+                        <table class="table">
+                            <tr>
+                                <th class="table__td-check">
+                                    <label class="checkbox">
+                                        <input type="checkbox" class="visually-hidden">
+                                        <span class="checkbox__mark"></span>
+                                    </label>
+                                </th>
+                                <th>Поставщик</th>
+                                <th>Телефон</th>
+                                <th>Emal</th>
+                                <th>Адрес</th>
+                            </tr>
+                            {% for supplier in suppliers %}
+                                <tr>
+                                    <td class="table__td-check">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="supplier" value="{{ supplier.id }}"
+                                                   class="visually-hidden">
+                                            <span class="checkbox__mark"></span>
+                                        </label>
+                                    </td>
+                                    <td class="table__td-name">
+                                    <span class="table__td-link">
+                                        {{ supplier.organization }}
+                                        <a class="table__td-edit__" href="{% url 'supplier-update' supplier.id %}"></a>
+                                    </span>
+                                    </td>
+                                    <td>{{ supplier.phone_number }}</td>
+                                    <td>{{ supplier.email }}</td>
+                                    <td>{{ supplier.actual_address }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <input id="delete-btn" type="submit" style="display: none;">
+                </form>
+            </div>
+        </div>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="block block--add block--add-suppliers">
+            <div class="block__head">
+                <div class="block__item">
+                    <button class="btn btn-def btn-green btn-green--disabled" type="submit">Сохранить</button>
+                </div>
+                <div class="block__item block__item--r">
+                    <button class="btn btn-circle-close" id="add-suppliers-close"></button>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__caption">Добавление поставщика</p>
+            </div>
+            <div class="block__item block__item--full">
+                {#            <input type="text" class="input-text" placeholder="Поиск по организации по наименованию, ИНН или ОГРН">#}
+                {{ form.organization }}
+            </div>
+            <p class="block__cap">Ввод в вручную</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Наименование</p>
+                {#            <input type="text" class="input-text">#}
+                {{ form.name }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Номер телефона</p>
+                <div class="input">
+                    {#                <input type="text" class="input__input">#}
+                    {{ form.phone_number }}
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Email</p>
+                <div class="input">
+                    {#                <input type="text" class="input__input">#}
+                    {{ form.email }}
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Веб сайт</p>
+                {#            <input type="text" class="input-text">#}
+                {{ form.web_page }}
+            </div>
+            <p class="block__cap">Реквизиты</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Реквизиты организации</p>
+                <div class="input">
+                    {#                <input type="text" class="input__input" placeholder="Наименование реквизита">#}
+                    {{ form.requisite_organization_name }}
+                    <div class="input__icon input__icon--plus"></div>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                {#            <input type="text" class="input-text" placeholder="Номер реквизита">#}
+                {{ form.requisite_organization_number }}
+            </div>
+            <p class="block__cap">Банковские реквизиты</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Номер счета</p>
+                {#            <input type="text" class="input-text">#}
+                {{ form.bank_requisite }}
+            </div>
+            <p class="block__cap">Адреса</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Юридический</p>
+                {#            <input type="text" class="input-text input-text--big">#}
+                {{ form.legal_address }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Фактический</p>
+                {#            <input type="text" class="input-text input-text--big">#}
+                {{ form.actual_address }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Описание</p>
+                {#            <textarea name="" id="" rows="10" class="textarea"></textarea>#}
+                {{ form.comment }}
+            </div>
+        </div>
+    </form>
+{% endblock %}

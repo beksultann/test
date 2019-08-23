@@ -1,0 +1,264 @@
+{% extends 'product/index.html' %}
+{% block content %}
+    <div class="content">
+        <div class="content__block-wrapper">
+            <div class="block">
+                <div class="block__head">
+                    <form action="" class="block__head">
+{#                        <div class="block__item">#}
+{#                            <div class="calendar">#}
+{#                                <div class="calendar__cap">Дата</div>#}
+{#                                <div class="calendar__value">#}
+{#                                    <input name="calendar" type="text" class="datepicker-here"#}
+{#                                           data-position="right top"#}
+{#                                           onchange='if(this.value != 0) { this.form.submit(); }'>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+                        <div class="block__item">
+                            <div class="filter-select">
+                                <div class="filter-select__cap">Кассир
+                                    <span class="filter-select__dalete"></span></div>
+                                <select name="select_cashier" id="" class="filter-select__select"
+                                        onchange='if(this.value != 0) { this.form.submit(); }'>
+                                    <option data-display="Выбрать кассира" value='' name=""></option>
+                                    {% for cashier in cashiers %}
+                                        <option id="" value="{{ cashier.username }}">{{ cashier.username }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="block__item">
+                            <div class="filter-select">
+                                <div class="filter-select__cap">Магазин
+                                    <span class="filter-select__dalete"></span></div>
+                                <select name="select_shop" id="" class="filter-select__select"
+                                        onchange='if(this.value != 0) { this.form.submit(); }'>
+                                    <option data-display="Выбрать магазина" value='' name=""></option>
+                                    {% for shop in shops %}
+                                        <option id="" value="{{ shop.name }}">{{ shop.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="block__item">
+                            <div class="filter-select">
+                                <div class="filter-select__cap">Касса
+                                    <span class="filter-select__dalete"></span></div>
+                                <select name="select_cash" id="" class="filter-select__select"
+                                        onchange='if(this.value != 0) { this.form.submit(); }'>
+                                    <option data-display="Выбрать Кассу" value='' name=""></option>
+                                    {% for cash in cashboxes %}
+                                        <option id="" value="{{ cash.name }}">{{ cash.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="block__item block__item--r">
+                            <div class="button-link">
+                                <a href="" class="button-link__button button-link__button--filter">
+                                    <span class="button-link__icon button-link__icon--filter"></span>
+                                    Фильтр
+                                </a>
+                            </div>
+                        </div>
+                        <div class="block__item">
+                            <a href="" class="button-controls">
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <div class="block__item block__item--overauto">
+                    <table class="table">
+                        <tr>
+                            <th class="table__td-status">
+                                Статус
+                            </th>
+                            <th>Номер</th>
+                            <th>Открыта</th>
+                            <th>Закрыта</th>
+                            <th>Кассир</th>
+                            <th>Касса</th>
+                            <th>Точка продажи</th>
+                            <th>Прибыль</th>
+                            <th>Продажи</th>
+                        </tr>
+                        {% for report in reports %}
+                            <tr>
+                                {% if report.closed_cash %}
+                                    <td class="table__td-status table__td-status--close">
+                                    </td>
+                                {% else %}
+                                    <td class="table__td-status table__td-status--open">
+                                {% endif %}
+
+                                <td>Смена #{{ report.id }}</td>
+                                <td>{{ report.opened_cash }}</td>
+                                <td>{{ report.closed_cash }}</td>
+                                <td>{{ report.cashier }}</td>
+                                <td>{{ report.cash }}</td>
+                                <td>{{ report.shop }}</td>
+                                <td>{{ report.total_price }}</td>
+                                <td>{{ report.total_sold_product }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block block--add block--add-good">
+        <div class="block__head">
+            <div class="block__item">
+                <button class="btn btn-def btn-green btn-green--disabled">Сохранить</button>
+            </div>
+            <div class="block__item block__item--r">
+                <button class="btn btn-circle-close" id="add-good-close"></button>
+            </div>
+        </div>
+        <label class="block__item block__item--col-half check-type">
+            <input type="radio" class="visually-hidden" checked name="add-good-or-servise">
+            <div class="check-type__content">
+                <p class="check-type__cap">Товар</p>
+                <p class="check-type__text">Продукт, имеющий остаток, который необходимо восполнять</p>
+            </div>
+        </label>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Наименование товара/услуги</p>
+            <input type="text" class="input-text">
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Штрих — код</p>
+            <input type="text" class="input-text">
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Изображение</p>
+            <label class="input-img">
+                <input type="file" class="visually-hidden">
+                Выберите фото для загрузки
+            </label>
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Категории</p>
+            <select name="" id="" class="my-select">
+                <option data-display="Выберите из списка или создайте новую категорию"></option>
+                <option value="">Слон</option>
+                <option value="">Лев</option>
+                <option value="">Жира</option>
+            </select>
+        </div>
+        <div class="block__item block__item--col-half">
+            <p class="block__item-name">Единица измерения</p>
+            <input type="text" class="input-text" placeholder="шт/кг/л">
+        </div>
+        <div class="block__item block__item--col-half">
+            <label class="checkbox-button">
+                <input type="checkbox" class="checkbox-button__input">
+                Весовой товар
+            </label>
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Описание</p>
+            <textarea name="" id="" rows="10" class="textarea"></textarea>
+        </div>
+        <div class="block__item block__item--full">
+            <hr class="block-hr">
+        </div>
+        <p class="block__cap">Цены</p>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Цена закупки</p>
+            <input type="text" class="input-text" placeholder="Сом">
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Наценка</p>
+            <input type="text" class="input-text" placeholder="%">
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Цена продажи</p>
+            <input type="text" class="input-text" placeholder="Сом">
+        </div>
+        <div class="block__item block__item--col-half">
+            <p class="block__item-name">Скидка</p>
+            <input type="text" class="input-text" placeholder="%">
+        </div>
+        <div class="block__item block__item--col-half">
+            <p class="block__item-name">НДС</p>
+            <input type="text" class="input-text" placeholder="%">
+        </div>
+        <div class="block__item block__item--full">
+            <hr class="block-hr">
+        </div>
+        <p class="block__cap">Склад</p>
+        <div class="block__item block__item--full">
+            <select name="" id="" class="my-select">
+                <option data-display="Группы"></option>
+                <option value="">Слон</option>
+                <option value="">Лев</option>
+                <option value="">Жира</option>
+            </select>
+        </div>
+        <div class="block__item block__item--col-half">
+            <p class="block__item-name">Выберите поставщика</p>
+            <select name="" id="" class="my-select">
+                <option value="">Слон</option>
+                <option value="">Лев</option>
+                <option value="">Жира</option>
+            </select>
+        </div>
+        <div class="block__item block__item--col-half">
+            <p class="block__item-name">Минимальный остаток</p>
+            <input type="text" class="input-text" placeholder="%">
+        </div>
+        <div class="block__item block__item--full">
+            <label class="checkbox-button">
+                <input type="checkbox" class="checkbox-button__input">
+                <div class="checkbox-button__text">
+                    <span class="checkbox-button__lead">Ввести начальные остатки</span><br>
+                    <span class="checkbox-button__title">Будут созданы документы оприходования</span>
+                </div>
+            </label>
+        </div>
+        <div class="block__item">
+            <p class="block__item-name">Точка продажи</p>
+            <select name="" id="" class="my-select">
+                <option data-display="Мой магазин"></option>
+                <option value="">Слон</option>
+                <option value="">Лев</option>
+                <option value="">Жира</option>
+            </select>
+        </div>
+        <div class="block__item">
+            <p class="block__item-name">Начальный остаток</p>
+            <input type="text" class="input-text">
+        </div>
+        <div class="block__item">
+            <p class="block__item-name">Срок годности</p>
+            <div class="input">
+                <input type="date" class="input__input input__input--date" placeholder="DD/MM/YYYY">
+            </div>
+        </div>
+    </div>
+    <div class="block block--add block--add-group">
+        <div class="block__head">
+            <div class="block__item">
+                <button class="btn btn-def btn-green btn-green--disabled">Сохранить</button>
+            </div>
+            <div class="block__item block__item--r">
+                <button class="btn btn-circle-close" id="add-group-close"></button>
+            </div>
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Наименование товара/услуги</p>
+            <input type="text" class="input-text">
+        </div>
+        <div class="block__item block__item--full">
+            <p class="block__item-name">Родитель</p>
+            <select name="" id="" class="my-select">
+                <option data-display="Выберать"></option>
+                <option value="">Слон</option>
+                <option value="">Лев</option>
+                <option value="">Жира</option>
+            </select>
+        </div>
+    </div>
+{% endblock %}

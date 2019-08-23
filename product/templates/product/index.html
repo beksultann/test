@@ -1,0 +1,271 @@
+{% block header %}
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="ru">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Главная</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/libs.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="{% static 'js/google-chart.js' %}"></script>
+    </head>
+
+    <body>
+    <header class="header">
+        <nav class="nav">
+            <a href="" class="logo"><img src=" {% static 'img/LOGO.png' %}" alt=""></a>
+            <div class="nav__left">
+
+                <a href="{% url 'log_cash' %}" class="nav__left-item btn btn-xs btn-nav">Интерфейс
+                    кассира</a>
+                <a href="" class="nav__left-item bell"><span class="bell__count">10</span></a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="nav__left-item nav-user">
+                    {{ user.first_name }} {{ user.last_name }}<br>
+                {% else %}
+                    Имя Фамилия
+                {% endif %}
+                <span class="user-nav__status">Владелец</span>
+                </a>
+
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+<main class="main">
+    {% block menu %}
+        <div class="menu-wrapper">
+            <div class="menu">
+                <div class="menu__btncreat-doc">
+                    <a href="" class="btn btn-sm btn-red">Создать документ</a>
+                </div>
+                <div class="menu__item">
+                    <a href="{% url 'index' %}" class="menu__link menu__link--home menu__link--active">Главная</a>
+                </div>
+                <div class="menu__item">
+                    <a href="{% url 'manager-products' %}" class="menu__link menu__link--gs">Товары и услуги</a>
+                </div>
+                <div class="menu__item">
+                    <a href="" class="menu__link menu__link--cashbox menu__link--drop">Кассы и смены</a>
+                    <div class="menu__drop">
+                        <a href="{% url 'cashbox' %}" class="menu__drop-link menu__drop-link--cashier">Кассы</a>
+                        <a href="{% url 'shifts' %}" class="menu__drop-link menu__drop-link--shifts">смены</a>
+                    </div>
+                </div>
+                <div class="menu__item">
+                    <a href="{% url 'report' %}" class="menu__link menu__link--reports">Отчеты</a>
+                </div>
+                <div class="menu__item">
+                    <a href="" class="menu__link menu__link--counterparties menu__link--drop">Контрагенты</a>
+                    <div class="menu__drop">
+                        <a href="{% url 'supplier' %}" class="menu__drop-link menu__drop-link--suppliers">Поставщики</a>
+                        <a href="{% url 'customer' %}" class="menu__drop-link menu__drop-link--customers">Клиенты</a>
+                    </div>
+                </div>
+                <div class="menu__item">
+                    <a href="" class="menu__link menu__link--compain menu__link--drop">Компании</a>
+                    <div class="menu__drop">
+                        <a href="{% url 'employees' %}"
+                           class="menu__drop-link menu__drop-link--employees">Сотрудники</a>
+                        <a href="{% url 'shops' %}" class="menu__drop-link menu__drop-link--shops">Магазины</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    {% block content %}
+        <div class="content">
+            <div class="content__block-wrapper content__block-wrapper">
+                <div class="block">
+                    <div class="block__head">
+                        <div class="block__item">
+                            <select name="" id="" class="my-select">
+                                <option data-display="Выбрать по месецам"></option>
+                                <option value="">Слон</option>
+                                <option value="">Лев</option>
+                                <option value="">Жира</option>
+                            </select>
+                        </div>
+                        <div class="block__item">
+                            <select name="" id="" class="my-select">
+                                <option data-display="Выбрать точку продажи"></option>
+                                <option value="">Слон</option>
+                                <option value="">Лев</option>
+                                <option value="">Жира</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="block__item block__item--aside">
+                        <div class="block__item-inner">
+                            <p class="block__lead">Выручка</p>
+                            <p class="blue-text">1,382.50</p>
+                        </div>
+                        <div class="block__item-inner">
+                            <p class="block__lead">Себестоимость продаж</p>
+                            <p class="blue-text">0.00</p>
+                        </div>
+                        <div class="block__item-inner">
+                            <p class="block__lead">Прибыль</p>
+                            <p class="blue-text">{{ total_price }} сом</p>
+                        </div>
+                        <div class="block__item-inner">
+                            <p class="block__lead">Средний чек</p>
+                            <p class="blue-text">{{ average_price }}</p>
+                        </div>
+                    </div>
+                    <div class="block__item block__item--diagram">
+                        График
+                    </div>
+                </div>
+            </div>
+            <div class="content__block-wrapper content__block-wrapper--col">
+                <div class="block">
+                    <div class="block__head">
+                        <div class="block__item">
+                            <h1>Документы</h1>
+                        </div>
+                        <div class="block__item block__item--r">
+                            <select name="" id="" class="my-select">
+                                <option data-display="Выбрать по месецам"></option>
+                                <option value="">Слон</option>
+                                <option value="">Лев</option>
+                                <option value="">Жира</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table class="table table--full">
+                        <tr>
+                            <th>Наименование</th>
+                            <th>Количество</th>
+                            <th>Сумма</th>
+                            <th>Склад</th>
+                        </tr>
+                        <tr>
+                            <td>Продажа</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                        <tr>
+                            <td>Закупка</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                        <tr>
+                            <td>Возврат продажи</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                        <tr>
+                            <td>Возврат закупки</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                        <tr>
+                            <td>Корректировка</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                        <tr>
+                            <td>Инвентаризация</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                        <tr>
+                            <td>Оприходование</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                        <tr>
+                            <td>Списывание</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                        <tr>
+                            <td>Перемещение</td>
+                            <td>238</td>
+                            <td>185 088,00</td>
+                            <td>648</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content__block-wrapper content__block-wrapper--col">
+                <div class="block">
+                    <div class="block__head block__head--sb">
+                        <div class="block__item">
+                            <h1>Оценка склада</h1>
+                        </div>
+                        <form>
+                            <div class="block__item">
+                                <select name="select_market" id="" class="my-select"
+                                        onchange='if(this.value != 0) { this.form.submit(); }'>
+                                    <option data-display="Выбрать точку продажи" value='name' name=""></option>
+                                    {% for shop in shops %}
+                                        <option id="" value="{{ shop.name }}">{{ shop.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </form>
+                        {#                        <form class="input input--filter">#}
+                        {#                            <input type="text" class="input__input" name="search" placeholder="Поиск">#}
+                        {#                        </form>#}
+                    </div>
+                    <div class="block__item block__item--full">
+                        <div class="attention">
+                            <p class="block__title">Внимание</p>
+                            <p class="attention__text"><a href="">40 позиций</a> с себестоимостью равной 0 сом (<a
+                                    href="">как
+                                изменить себестоимость</a>)</p>
+                        </div>
+                    </div>
+                    <div class="block__item block__item--full">
+                        <p class="block__title">Количество товара</p>
+                        <h1 class="blue-text">{{ num }} ед.</h1>
+                    </div>
+                    <div class="block__item">
+                        <p class="block__subtitle">Стоимость товара</p>
+                        <p class="block__title">В розничных ценах</p>
+                        <h1 class="blue-text">{{ pur_price }} сом</h1>
+                    </div>
+                    <div class="block__item">
+                        <p class="block__subtitle">Стоимость товара</p>
+                        <p class="block__title">По себестоимости</p>
+                        <h1 class="blue-text">{{ sell_price }} сом</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#        <script>#}
+        {#            function selectMarket() {#}
+        {#                let id = document.getElementById('market').value;#}
+        {#                $.ajax({#}
+        {#                    type: 'POST',#}
+        {#                    dataType: 'html',#}
+        {#                    url: Routing.generate('index', {id: id}),#}
+        {#                    success: function (data) {#}
+        {#                        // console.log(data);#}
+        {#                        $('#model').html(data);#}
+        {#                    },#}
+        {#                });#}
+        {#            }#}
+        {#        </script>#}
+    {% endblock %}
+</main>
+{% block footer %}
+    <script src="{% static 'js/libs.min.js' %}"></script>
+    <script src="{% static 'js/common.js' %}"></script>
+{% endblock %}
+</body>
+
+</html>

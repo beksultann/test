@@ -1,0 +1,334 @@
+{% extends 'product/index.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="content">
+        <div class="content__block-wrapper">
+            <div class="block">
+                <div class="block__head">
+                    <div class="block__item relative">
+                        <form class="input input--filter">
+                            <input type="text" class="input__input" name="search"
+                                   placeholder="Поиск по наименованию...">
+                            <span class="input__icon input__icon--filter"></span>
+                            <div class="filter-input">`
+                                <div class="filter-input__row">
+                                    <p class="filter-input__cap">Выбрать категорию</p>
+                                    <div class="w-33 g">
+                                        <select name="category" id="" class="my-select">
+                                            <option data-display="Действия"></option>
+                                            {% for category in categories %}
+                                                <option name="category"
+                                                        value="{{ category.name }}">{{ category.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="filter-input__row">
+                                    <p class="filter-input__cap">Цена</p>
+                                    <div class="filter-input__inner-block">
+                                        <div class="w-33">
+                                            <select name="" id="" class="my-select">
+                                                <option data-display="Базовая"></option>
+                                            </select>
+                                        </div>
+                                        <div class="w-33">
+                                            <div class="input input--namber-filter">
+                                                <input type="number" name="min_price" class="input__input"
+                                                       placeholder="От">
+                                                <span class="input-nstr input-nstr--plus"></span>
+                                                <span class="input-nstr input-nstr--minus"></span>
+                                            </div>
+                                        </div>
+                                        <div class="w-33">
+                                            <div class="input input--namber-filter">
+                                                <input type="number" name="max_price" class="input__input"
+                                                       placeholder="До">
+                                                <span class="input-nstr input-nstr--plus"></span>
+                                                <span class="input-nstr input-nstr--minus"></span>
+                                            </div>
+                                        </div>
+                                        <div class="filter-input__block-plus"></div>
+                                    </div>
+                                </div>
+                                {#                                <div class="filter-input__row">#}
+                                {#                                    <p class="filter-input__cap">Остатки</p>#}
+                                {#                                    <div class="filter-input__inner-block">#}
+                                {#                                        <div class="w-33">#}
+                                {#                                            <select name="" id="" class="my-select">#}
+                                {#                                                <option data-display="Общие"></option>#}
+                                {#                                                <option value="">Слон</option>#}
+                                {#                                                <option value="">Лев</option>#}
+                                {#                                                <option value="">Жира</option>#}
+                                {#                                            </select>#}
+                                {#                                        </div>#}
+                                {#                                        <div class="w-33">#}
+                                {#                                            <select name="" id="" class="my-select">#}
+                                {#                                                <option data-display="Больше"></option>#}
+                                {#                                                <option value="">Слон</option>#}
+                                {#                                                <option value="">Лев</option>#}
+                                {#                                                <option value="">Жира</option>#}
+                                {#                                            </select>#}
+                                {#                                        </div>#}
+                                {#                                        <div class="w-33">#}
+                                {#                                            <div class="input input--namber-filter">#}
+                                {#                                                <input type="number" name="min_quantity" class="input__input"#}
+                                {#                                                       placeholder="">#}
+                                {#                                                <span class="input-nstr input-nstr--plus"></span>#}
+                                {#                                                <span class="input-nstr input-nstr--minus"></span>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                        <div class="filter-input__block-plus"></div>#}
+                                {#                                    </div>#}
+                                {#                                    <div class="filter-input__inner-block">#}
+                                {#                                        <div class="w-33">#}
+                                {#                                            <select name="" id="" class="my-select">#}
+                                {#                                                <option data-display="Общие"></option>#}
+                                {#                                                <option value="">Слон</option>#}
+                                {#                                                <option value="">Лев</option>#}
+                                {#                                                <option value="">Жира</option>#}
+                                {#                                            </select>#}
+                                {#                                        </div>#}
+                                {#                                        <div class="w-33">#}
+                                {#                                            <select name="" id="" class="my-select">#}
+                                {#                                                <option data-display="Больше"></option>#}
+                                {#                                                <option value="">Слон</option>#}
+                                {#                                                <option value="">Лев</option>#}
+                                {#                                                <option value="">Жира</option>#}
+                                {#                                            </select>#}
+                                {#                                        </div>#}
+                                {#                                        <div class="w-33">#}
+                                {#                                            <div class="input input--namber-filter">#}
+                                {#                                                <input type="number" name="max_quantity" class="input__input"#}
+                                {#                                                       placeholder="">#}
+                                {#                                                <span class="input-nstr input-nstr--plus"></span>#}
+                                {#                                                <span class="input-nstr input-nstr--minus"></span>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                        <div class="filter-input__block-plus filter-input__block-delete"></div>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                <div class="filter-input__row">
+                                    <div class="w-33 g">
+                                        <button class="btn btn-def btn-green">Применить</button>
+                                    </div>
+                                    <div class="w-33 g">
+                                        <button class="btn btn-def" type="submit">Сбросить фильтры</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="block__item">
+                        <div class="button-link">
+
+                            <label for="delete-btn"
+                                   class="button-link__button button-link__button--delete-good">
+                                <span class="button-link__icon button-link__icon--delete"></span>
+                                Удалить
+                            </label>
+                        </div>
+                    </div>
+                    <div class="block__item">
+                        <div class="button-link">
+                            <a href="" class="button-link__button button-link__button--add-good">
+                                <span class="button-link__icon button-link__icon--plus"></span>
+                                Добавить товар
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block__item">
+                        <div class="button-link">
+                            <a href="" class="button-link__button button-link__button--add-group">
+                                <span class="button-link__icon button-link__icon--folder"></span>
+                                Создать категорию
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="block__item block__item--r">
+                        <a href="" class="button-controls">
+                        </a>
+                    </div>
+                </div>
+                <form action="{% url 'manager-products' %}" method="post">
+
+                    {% csrf_token %}
+
+                    <div class="block__item block__item--overauto">
+                        <table class="table">
+                            <tr>
+                                <th class="table__td-check">
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="hello" class="visually-hidden">
+                                        <span class="checkbox__mark"></span>
+                                    </label>
+                                </th>
+                                <th>Наименование</th>
+                                <th>Код</th>
+                                <th>Ед.измерения</th>
+                                <th>Базовая цена (сом)</th>
+                                <th>Наценка (сом)</th>
+                                <th>НДС (%)</th>
+                                <th>Скидки (сом)</th>
+                                <th>Цена продажи (сом)</th>
+                                <th>Остатки</th>
+                            </tr>
+                            {% for product in products %}
+                                <tr>
+                                    <td class="table__td-check">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="product" value="{{ product.id }}"
+                                                   class="visually-hidden">
+                                            <span class="checkbox__mark"></span>
+                                        </label>
+                                    </td>
+                                    <td class="table__td-name">
+                                        <span class="table__td-link">
+                                            <div class="table__td-img">
+                                                {% if product.image %}
+                                                    <img src="{{ product.image.url }}" alt="">
+                                                {% endif %}
+
+                                            </div>
+                                            {{ product.name }}
+                                            <a class="table__td-edit__" href="{% url 'product-update' product.id %}">
+
+                                            </a>
+                                        </span>
+                                    </td>
+                                    <td>{{ product.barcode }}</td>
+                                    <td>{{ product.unit }}</td>
+                                    <td>{{ product.purchase_price }}</td>
+                                    <td>{{ product.markup }}</td>
+                                    <td>{{ product.vat }}</td>
+                                    <td>{{ product.discount }}</td>
+                                    <td>{{ product.selling_price }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                    <input id="delete-btn" type="submit" style="display: none;">
+                </form>
+            </div>
+        </div>
+    </div>
+    <form method="post" action="" enctype='multipart/form-data'>
+        {% csrf_token %}
+
+        <div class="block block--add block--add-good">
+            <div class="block__head">
+                <div class="block__item">
+                    <button type="submit" class="btn btn-def btn-green btn-green--disabled ">Сохранить</button>
+                </div>
+                <div class="block__item block__item--r">
+                    <button class="btn btn-circle-close" id="add-good-close"></button>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+
+                <p class="block__caption">Товар</p>
+                <p class="block__title">Продукт, имеющий остаток, который необходимо восполнять</p>
+
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Наименование товара/услуги</p>
+                {{ form.name }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Количевство</p>
+                {{ form.quantity }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Штрих — код</p>
+                {{ form.barcode }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Изображение</p>
+                {#                <label class="input-img">#}
+                {#                    #}
+                {#                </label>#}
+                {{ form.image }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Категории</p>
+                {{ form.categories_name }}
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Единица измерения</p>
+                {#            <input type="text" class="input-text" placeholder="шт/кг/л">#}
+                {{ form.unit }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Описание</p>
+                {#            <textarea name="" id="" rows="10" class="textarea"></textarea>#}
+                {{ form.comment }}
+            </div>
+            <div class="block__item block__item--full">
+                <hr class="block-hr">
+            </div>
+            <p class="block__cap">Цены</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Цена закупки</p>
+                {#            <input type="text" class="input-text" placeholder="Сом">#}
+                {{ form.purchase_price }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Цена продажи</p>
+                {#            <input type="text" class="input-text" placeholder="Сом">#}
+                {{ form.selling_price }}
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Скидка</p>
+                {{ form.discount }}
+                {#            <input type="text" class="input-text" placeholder="%">#}
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">НДС</p>
+                {{ form.vat }}
+                {#            <input type="text" class="input-text" placeholder="%">#}
+            </div>
+            <div class="block__item block__item--full">
+                <hr class="block-hr">
+            </div>
+            <p class="block__cap">Склад</p>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Выберите поставщика</p>
+                {{ form.suppliers_name }}
+
+            </div>
+
+            <div class="block__item">
+                <p class="block__item-name">Точка продажи</p>
+                {{ form.shop }}
+            </div>
+        </div>
+    </form>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="block block--add block--add-group">
+            <div class="block__head">
+                <div class="block__item">
+                    <button class="btn btn-def btn-green btn-green--disabled" type="submit">Сохранить</button>
+                </div>
+                <div class="block__item block__item--r">
+                    <button class="btn btn-circle-close" id="add-group-close"></button>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Наименование товара/услуги</p>
+                {#                <input type="text" class="input-text">#}
+                {{ form_category.name }}
+            </div>
+            <div>
+                {% for item in history %}
+                    <p>Владелец: {{ item.actor }}</p>
+                    <p>Изменен: {{ item }}</p>
+                    <p>Дата: {{ item.timestamp }}</p>
+
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+{% endblock %}

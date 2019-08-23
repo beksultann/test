@@ -1,0 +1,129 @@
+{% extends 'product/index.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="content">
+        <div class="content__block-wrapper">
+            <div class="block">
+
+                <div class="block__item block__item--overauto">
+                    <table class="table">
+                        <tr>
+                            <th class="table__td-check">
+                                <label class="checkbox">
+                                    <input type="checkbox" class="visually-hidden">
+                                    <span class="checkbox__mark"></span>
+                                </label>
+                            </th>
+                            <th>Наименование</th>
+                            <th>Код</th>
+                            <th>Ед.измерения</th>
+                            <th>Базовая цена (сом)</th>
+                            <th>Скидки</th>
+                            <th>Остатки</th>
+                        </tr>
+                        <tr>
+                            <td class="table__td-check">
+                                <label class="checkbox">
+                                    <input type="checkbox" class="visually-hidden">
+                                    <span class="checkbox__mark"></span>
+                                </label>
+                            </td>
+                            <td class="table__td-name">
+                                <a href="" class="table__td-link">
+                                    <div class="table__td-img">
+                                        <img src="{{ object.image.url }}" alt="">
+                                    </div>
+                                    {{ object.name }}
+                                </a>
+                            </td>
+                            <td>{{ object.barcode }}</td>
+                            <td>{{ object.unit }}</td>
+                            <td>{{ object.selling_price }}</td>
+                            <td>{{ object.discount }}</td>
+                            <td>{{ object.quantity }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post" action="" enctype='multipart/form-data'>
+        {% csrf_token %}
+
+        <div class="block block--add_ block--add-good">
+            <div class="block__head">
+                <div class="block__item">
+                    <button type="submit" class="btn btn-def btn-green btn-green--disabled ">Сохранить</button>
+                </div>
+                <div class="block__item block__item--r">
+                    <a href="{% url 'manager-products' %}" class="btn btn-circle-close">
+                    </a>
+                </div>
+            </div>
+            <label class="block__item block__item--col-half check-type">
+                <input type="radio" class="visually-hidden" checked name="add-good-or-servise">
+                <div class="check-type__content">
+                    <p class="check-type__cap">Товар</p>
+                    <p class="check-type__text">Продукт, имеющий остаток, который необходимо восполнять</p>
+                </div>
+            </label>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Наименование товара/услуги</p>
+                {{ form.name|add_class:"input-text" }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Количевство</p>
+                {{ form.quantity|add_class:"input-text" }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Штрих — код</p>
+                {{ form.barcode|add_class:"input-text" }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Изображение</p>
+                <label class="input-img">
+                    {{ form.image }}
+
+                </label>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Категории</p>
+                {{ form.categories_name|add_class:'my-select' }}
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Единица измерения</p>
+                {{ form.unit|add_class:"input-text" }}
+
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Описание</p>
+                {{ form.comment|add_class:"textarea" }}
+            </div>
+            <div class="block__item block__item--full">
+                <hr class="block-hr">
+            </div>
+            <p class="block__cap">Цены</p>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Цена закупки</p>
+                {{ form.purchase_price|add_class:"input-text" }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Цена продажи</p>
+                {{ form.selling_price|add_class:"input-text" }}
+            </div>
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Скидка %</p>
+                {{ form.discount|add_class:"input-text" }}
+            </div>
+
+            <div class="block__item block__item--col-half">
+                <p class="block__item-name">Выберите поставщика</p>
+                {{ form.suppliers_name|add_class:"my-select" }}
+            </div>
+            <div class="block__item">
+                <p class="block__item-name">Точка продажи</p>
+                {{ form.shop|add_class:"my-select" }}
+            </div>
+        </div>
+    </form>
+{% endblock %}

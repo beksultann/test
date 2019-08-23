@@ -1,0 +1,91 @@
+{% extends 'product/index.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="content">
+        <div class="content__block-wrapper">
+            <div class="block">
+                <div class="block__head">
+                    <div class="block__item">
+                        <div class="button-link">
+                            <a href="" class="button-link__button button-link__button--plus-shop">
+                                <span class="button-link__icon button-link__icon--plus"></span>
+                                Создать магазин
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content__block-wrapper">
+            <div class="block block--employee">
+                {% for shop in shops %}
+                    <div class="block__item block__item--third">
+                        <div class="employee">
+                            <div class="employee__head">
+                                <div class="employee__img employee__img--shop">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="employee__info">
+                                    <div class="employee__name">{{ shop.name }}</div>
+                                </div>
+                                <div class="edit-dots">
+                                    <div class="edit-dots__button">
+                                        <span class="edit-dot"></span>
+                                        <span class="edit-dot"></span>
+                                        <span class="edit-dot"></span>
+                                    </div>
+                                    <div class="edit-dots__list">
+{#                                        <a href="#" class="edit-dots__item edit-dots__item--edit">Редактировать</a>#}
+                                        <a href="{% url 'delete_shop' shop.id %}"
+                                           class="edit-dots__item edit-dots__item--delete">Удалить</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="employee__item employee__item--address">{{ shop.address }}</div>
+                            <div class="employee__item employee__item--description">Описание Описание Описание</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="block block--add block--add-shop">
+        <form action="" method="post" class="block block--add block--add-shop">
+            {% csrf_token %}
+            <div class="block__head">
+                <div class="block__item">
+                    <button class="btn btn-def btn-green btn-green--disabled" type="submit">Сохранить</button>
+                </div>
+                <div class="block__item block__item--r">
+                    <button class="btn btn-circle-close" id="add-shop-close"></button>
+                </div>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__caption">Добавление магазина</p>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">название</p>
+                {{ form.name }}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Изображение</p>
+                <label class="input-img">
+                    {#                    <input type="file" class="visually-hidden">#}
+                    {{ form.image|add_class:"visually-hidden" }}
+                </label>
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Адрес</p>
+                {{ form.address|add_class:"input-text input-text--big" }}
+                {#                <input type="text" class="input-text input-text--big">#}
+            </div>
+            <div class="block__item block__item--full">
+                <p class="block__item-name">Описание</p>
+                {{ form.comment|add_class:"input-text input-text--big" }}
+                {#                <textarea name="" id="" rows="10" class="textarea"></textarea>#}
+            </div>
+        </form>
+    </div>
+{% endblock %}

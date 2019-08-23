@@ -1,0 +1,489 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Интерфейс кассра</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/libs.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+<div class="main-cashier">
+    <div class="tabs main-cashier__content">
+        <ul class="changer header header--cashier">
+            <li class="change-item nav-btn nav-btn--good"></li>
+            <li class="change-item nav-btn nav-btn--category"></li>
+            <form class="input input--filter">
+                <input type="text" name="search" class="nav-search"
+                       placeholder="Поиск по наименованию, артикулу, штрихкоду и описанию">
+            </form>
+        </ul>
+        <div class="change-block content content--scroll">
+            <div class="block block--good-cashier">
+                <div class="block__item block__item--full">
+                    <p class="block__caption">Товары</p>
+                </div>
+                {% for product in products %}
+                    <div class="block__col">
+                        <div class="card-good" style="text-align: center">
+                            <p class="card-good__cap">100 {{ product.unit }}</p>
+
+                            <div class="card-good__img">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="">
+                                {% endif %}
+
+                            </div>
+
+                            <p class="card-good__name" id="product_name">{{ product.name }}</p>
+                            <p class="card-good__price" id="product_price">{{ product.selling_price }} сом</p>
+
+                            {#                            <input class="card-good__count" type="number" value="0"/>#}
+                            <a href="{% url 'add_to_cart' product.id %}">
+                                {#                               class="add_to_cart "#}
+                                {#                               data-id='{{ product.id }}'#}
+
+
+                                <button class="button-link__button"
+                                        style="background-color: lightgray">ДОБАВИТЬ
+                                </button>
+                            </a>
+
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="change-block content content--category">
+            <form class="input input--filter">
+                <div class="block block--good-cashier">
+                    <div class="block__item block__item--full">
+                        <p class="block__caption">Категории</p>
+                    </div>
+                    {% for category in categories %}
+
+                        <div class="block__color">
+                            <input type="submit" class="card-color" name="filter_product" value="{{ category.name }}"/>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+            </form>
+        </div>
+
+        <div class="menu-bottom">
+            <div class="menu-bottom__burger">
+                <a href="" class="menu-bottom__burger-link">Меню</a>
+                <div class="menu-bottom__list">
+                    <a href="" class="menu-bottom__items menu-bottom__items--make-return" id="make-return">
+                        Сделать возврат</a>
+                    <a href="{% url 'report_save_of_cashier' %}"
+                       class="menu-bottom__items menu-bottom__items--close-change">
+                        Закрыть смену
+                    </a>
+                </div>
+            </div>
+            <div class="menu-bottom__item">Магазин Фрунзе №1 / Смена 4</div>
+            <div class="menu-bottom__item">19 июня, среда 10: 39</div>
+        </div>
+    </div>
+    <div class="main-cashier__sidebar">
+        <div class="sidebar--hidden display-flex">
+            <header class="header header--sidebar">
+                <nav class="nav">
+                    <input type="text" class="nav-search" placeholder="Розничный покупатель">
+                    <a href="" class="nav-btn nav-btn--ava-cashuer1" id="add-cus-open1"></a>
+                    <a href="" class="nav-btn nav-btn--ava-cashuer2" id="add-cus-open2"></a>
+                    <a href="" class="nav-btn nav-btn--ava-cashuer" id="add-cus-open"></a>
+
+                </nav>
+            </header>
+            <div class="table-sidebar-wrapper">
+
+                <table class="table-sidebar" id="reload">
+                    <tr>
+                        <th>Наименование</th>
+                        <th>Цена</th>
+                        <th>Кол-во</th>
+                        <th>Скидка</th>
+                        <th>Итог</th>
+                    </tr>
+                    {% if records %}
+                        {% for record in records %}
+                            {% if record.fields.name %}
+                                <tr>
+                                    <td>{{ record.fields.name }}</td>
+                                    <td>{{ record.fields.selling_price }}</td>
+                                    <td>{{ record.counter }}</td>
+                                    <td>{{ record.fields.discount }}</td>
+                                    <td>{{ record.one_price }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                </table>
+                {% if messages %}
+                    <ul class="messagelist">
+                        {% for message in messages %}
+                            <li class="alert alert-success ">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+
+                {% endif %}
+            </div>
+        </div>
+        <div class="sidebar--hidden" id="search-cus">
+            <header class="header header--sidebar">
+                <nav class="nav">
+                    <a href="" class="nav-btn nav-btn--delete" id="search-cus-close"></a>
+
+                    <input type="search" class="nav-search"
+                           placeholder="Поиск покупателя по имени, телефону, email и дисонтной карте">
+                </nav>
+            </header>
+            <div class="block">
+                <div class="block__item block__item--full">
+                    <p class="">ОсОО Рука в руке</p>
+                    <div class="block__info-cus">
+                        <div class="block__info-item">+996 555 234 567</div>
+                        <div class="block__info-item">Rukavruke@gmail.com</div>
+                        <div class="block__info-item">Дисконтная карта: 0657234567</div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="">ОсОО Рука в руке</p>
+                    <div class="block__info-cus">
+                        <div class="block__info-item">+996 555 234 567</div>
+                        <div class="block__info-item">Rukavruke@gmail.com</div>
+                        <div class="block__info-item">Дисконтная карта: 0657234567</div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="">ОсОО Рука в руке</p>
+                    <div class="block__info-cus">
+                        <div class="block__info-item">+996 555 234 567</div>
+                        <div class="block__info-item">Rukavruke@gmail.com</div>
+                        <div class="block__info-item">Дисконтная карта: 0657234567</div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="">ОсОО Рука в руке</p>
+                    <div class="block__info-cus">
+                        <div class="block__info-item">+996 555 234 567</div>
+                        <div class="block__info-item">Rukavruke@gmail.com</div>
+                        <div class="block__info-item">Дисконтная карта: 0657234567</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="main-cashier__add-costs">
+
+                <header class="header header--sidebar">
+                    <nav class="nav">
+                        <a href="" class="nav-btn nav-btn--delete" id="add-cus-close1"></a>
+                        <input type="text" class="nav-search" placeholder="Создание покупателя" disabled>
+                    </nav>
+                </header>
+
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Название</p>
+                    <div class="input">
+                        {{ form_cost.title }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Описание</p>
+                    <div class="input">
+                        {{ form_cost.comment }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Сумма</p>
+                    <div class="input">
+                        {{ form_cost.money }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+
+                <div class="block__item block__item--r">
+                    <button class="btn btn-def btn-green" id="" type="submit">Создать покупателя</button>
+                </div>
+
+            </div>
+        </form>
+        <form action="{% url 'employees_prepayment' %}" method="post">
+            {% csrf_token %}
+            <div class="main-cashier__add-prepayment">
+
+                <header class="header header--sidebar">
+                    <nav class="nav">
+                        <a href="" class="nav-btn nav-btn--delete" id="add-cus-close2"></a>
+                        <input type="text" class="nav-search" placeholder="Создание покупателя" disabled>
+                    </nav>
+                </header>
+
+                <div class="filter-input__row">
+                    <div class="w-33 g">
+                        <select name="employees_name" id="" class="my-select">
+                            <option data-display="Выбрать сотрудника"></option>
+                            {% for emp in employees %}
+                                <option name="category"
+                                        value="{{ emp.name }}">{{ emp.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">сумма аванса</p>
+                    <div class="input">
+                        <input type="number" class="input-text" name="prepayment">
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--r">
+                    <button class="btn btn-def btn-green" id="" type="submit">Создать покупателя</button>
+                </div>
+
+            </div>
+        </form>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="main-cashier__add-cus">
+
+                <header class="header header--sidebar">
+                    <nav class="nav">
+                        <a href="" class="nav-btn nav-btn--delete" id="add-cus-close"></a>
+                        <input type="text" class="nav-search" placeholder="Создание покупателя" disabled>
+                    </nav>
+                </header>
+
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Имя</p>
+                    <div class="input">
+                        {{ form.name|add_class:"input__input" }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Номер телефона</p>
+                    <div class="input">
+                        {{ form.phone_number|add_class:"input__input" }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Email</p>
+                    <div class="input">
+                        {{ form.email|add_class:"input__input" }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Скидка</p>
+                    <div class="input">
+                        {{ form.discount|add_class:"input__input" }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Дисконтная карта</p>
+                    <div class="input">
+                        {{ form.discount_card|add_class:"input__input" }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Дата рождения</p>
+                    {{ form.date_of_birth|add_class:"datepicker-here input-text" }}
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Адресс</p>
+                    <div class="input">
+                        {{ form.address }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Описание</p>
+                    <div class="input">
+                        {{ form.comment }}
+                        <div class="input__icon"></div>
+                    </div>
+                </div>
+
+
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Пол</p>
+                    <div class="gender-check-wrapper">
+                        {{ form.sex }}
+
+                    </div>
+                </div>
+                <div class="block__item block__item--r">
+                    <button class="btn btn-def btn-green" id="" type="submit">Создать покупателя</button>
+                </div>
+
+            </div>
+        </form>
+
+
+        <div class="menu-bottom menu-bottom-sidebar">
+            <a href="#" class="menu-bottom__cap" id="sell">Продажа</a>
+            <a href="#" class="menu-bottom__cap menu-bottom__cap--return" id="return">Возврат</a>
+            <table class="menu-bottom__table">
+                <tr>
+                    <td>Скидка :</td>
+                    <td>5%</td>
+                </tr>
+                <tr>
+                    <td>Итого :</td>
+                    <td>{{ total_price }} сом</td>
+                </tr>
+            </table>
+            <a href="{% url 'clear_session' %}">
+                <button class="btn menu-bottom__delete"></button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="popup popup__sell">
+    <form action="{% url 'save_to_database' %}" method="post">
+        {% csrf_token %}
+        <div class="block popup__content">
+            <div class="block__item block__item--col-half">
+                <div class="block__item">
+                    <p class="block__caption">Платежи</p>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="filter-input__cap">Выбрать клиента</p>
+
+                    <select name="customer_name" id="" class="my-select">
+                        <option data-display="Действия" value=''></option>
+                        {% for customer in customers %}
+                            <option value="{{ customer.name }}">{{ customer.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Итог</p>
+                    <input type="text" class="input-text" value="{{ total_price }}">
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Принято</p>
+                    <input type="text" class="input-text" name="get_price">
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Долг</p>
+                    <input type="text" class="input-text">
+                </div>
+
+            </div>
+            <div class="block__item block__item--col-half">
+                <div class="block__item">
+                    <p class="block__caption">Принять оплату</p>
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Сдачи</p>
+                    <input type="number" class="input-text">
+                </div>
+                <div class="block__item block__item--full">
+                    <p class="block__item-name">Комментарий</p>
+                    <textarea name="" id="" rows="10" class="textarea"></textarea>
+                </div>
+                <div class="change-block block__hidden">
+                    <div class="block__item block__item--full">
+                        {#                        <a href="{% url 'save_to_database' %}" class="btn input__btn btn-green btn-lg" id="sell-cash-">Принять</a>#}
+                        <button type="submit" class="btn input__btn btn-green btn-lg">Принять</button>
+                    </div>
+                    <p class="sell-success" id="success-cash-hint">Продажа прошла успешно (esc)</p>
+                </div>
+                <div class="change-block block__hidden display-none">
+                    <div class="block__item block__item--full">
+                        <a href="" class="btn input__btn btn-green btn-lg" id="sell-card">Принять</a>
+                    </div>
+                    <p class="sell-success" id="success-card-hint">Продажа прошла успешно (esc)</p>
+                    <div class="popup__content popup__content--card">
+                        <p class="popup__cap">Примите оплату через терминал</p>
+                        <a href="" class="btn btn-def btn-not" id="sell-card-unsuccess">Ошибка</a>
+                        <a href="" class="btn btn-def btn-green popup__btn" id="sell-card-success">Успешно</a>
+                    </div>
+                </div>
+            </div>
+            <a href="" class="btn btn-def btn-close popup__close"></a>
+        </div>
+    </form>
+</div>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+{#<script>#}
+{##}
+{##}
+{#    $(document).ready(function () {#}
+{#        $('.add_to_cart').on('click', function (e) {#}
+{#            e.preventDefault();#}
+{#            id = $(this).attr("data-id");#}
+{#            console.log(id);#}
+{#            data = {#}
+{#                id: id#}
+{#            };#}
+{##}
+{#            $.ajax(#}
+{#                {#}
+{#                    type: "GET",#}
+{#                    url: '{% url 'add_to_cart_view'%}',#}
+{#                    data: data,#}
+{#                    success: function (data) {#}
+{#                        console.log(data);#}
+{#                        $('#reload').html('<table>' + data.cart_total + '</table>');#}
+{#                    }#}
+{#                }#}
+{#            )#}
+{#        })#}
+{##}
+{#    });#}
+{##}
+{#    $(document).ready(function () {#}
+{#        $('.remove_from_cart').on('click', function (e) {#}
+{#            e.preventDefault();#}
+{#            id = $(this).attr("data-id");#}
+{#            item_product_id = $('.cart-item').attr('data-product-id');#}
+{#            data = {#}
+{#                id: id#}
+{#            };#}
+{##}
+{#            $.ajax(#}
+{#                {#}
+{#                    type: "GET",#}
+{#                    url: '{% url 'remove_from_cart'%}',#}
+{#                    data: data,#}
+{#                    success: function (data) {#}
+{#                        $('.cart-item-' + item_product_id).css('display', 'none')#}
+{#                    }#}
+{#                }#}
+{#            )#}
+{#        })#}
+{##}
+{#    })#}
+{#</script>#}
+<script src=" {% static 'js/libs.min.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+
+
+</body>
+
+</html>
