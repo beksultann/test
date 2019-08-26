@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,7 @@ SECRET_KEY = 'v_)qq%+tg^r5d&%*q6mrlscdxmpe1n8xzw50@)-amhzrre#^4!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['oraclecrm.herokuapp.com']
 
 # Application definition
 
@@ -90,16 +91,18 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 #         },
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dcr7sq5uct8bb6',
-        'USER': 'fllbafdtwtudig',
-        'PASSWORD': '265a0f8baba3437a6667f4c7a561088adfe60069aaed121440899799935301c4',
-        'HOST': 'ec2-54-235-208-103.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'dcr7sq5uct8bb6',
+#         'USER': 'fllbafdtwtudig',
+#         'PASSWORD': '265a0f8baba3437a6667f4c7a561088adfe60069aaed121440899799935301c4',
+#         'HOST': 'ec2-54-235-208-103.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -133,6 +136,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+import dj_database_url
+db_from_env =dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'product/static')
