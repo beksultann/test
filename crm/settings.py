@@ -90,16 +90,16 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 #         },
 #     }
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dvawhuumwuouih',
-#         'USER': 'deiskvqbi2k4a1',
-#         'PASSWORD': '260bb5596d26132c3eea2286f77c4b1cd470e16b795abd21c34794d68d887a41',
-#         'HOST': 'ec2-23-23-182-18.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'dvawhuumwuouih',
+        # 'USER': 'deiskvqbi2k4a1',
+        # 'PASSWORD': '260bb5596d26132c3eea2286f77c4b1cd470e16b795abd21c34794d68d887a41',
+        # 'HOST': 'ec2-23-23-182-18.compute-1.amazonaws.com',
+        # 'PORT': '5432',
+    }
+}
 
 
 
