@@ -82,24 +82,24 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': '/home/beksultan/www.projects/Django/crm/my.cnf',
-        },
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dcr7sq5uct8bb6',
-#         'USER': 'fllbafdtwtudig',
-#         'PASSWORD': '265a0f8baba3437a6667f4c7a561088adfe60069aaed121440899799935301c4',
-#         'HOST': 'ec2-54-235-208-103.compute-1.amazonaws.com',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'OPTIONS': {
+#             'read_default_file': '/home/beksultan/www.projects/Django/crm/my.cnf',
+#         },
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dcr7sq5uct8bb6',
+        'USER': 'fllbafdtwtudig',
+        'PASSWORD': '265a0f8baba3437a6667f4c7a561088adfe60069aaed121440899799935301c4',
+        'HOST': 'ec2-54-235-208-103.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
