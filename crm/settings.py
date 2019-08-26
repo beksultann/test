@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +24,7 @@ SECRET_KEY = 'v_)qq%+tg^r5d&%*q6mrlscdxmpe1n8xzw50@)-amhzrre#^4!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['oraclecrm.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -94,10 +93,10 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dcr7sq5uct8bb6',
-#         'USER': 'fllbafdtwtudig',
-#         'PASSWORD': '265a0f8baba3437a6667f4c7a561088adfe60069aaed121440899799935301c4',
-#         'HOST': 'ec2-54-235-208-103.compute-1.amazonaws.com',
+#         'NAME': 'dvawhuumwuouih',
+#         'USER': 'deiskvqbi2k4a1',
+#         'PASSWORD': '260bb5596d26132c3eea2286f77c4b1cd470e16b795abd21c34794d68d887a41',
+#         'HOST': 'ec2-23-23-182-18.compute-1.amazonaws.com',
 #         'PORT': '5432',
 #     }
 # }
