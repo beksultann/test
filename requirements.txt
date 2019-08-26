@@ -12,6 +12,7 @@ idna==2.8
 mysqlclient==1.4.2.post1
 Pillow==6.0.0
 psycopg2==2.7.4
+psycopg2-binary==2.8.3
 PyMySQL==0.9.3
 python-dateutil==1.5
 pytz==2019.1
